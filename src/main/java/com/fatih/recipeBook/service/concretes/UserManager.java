@@ -1,5 +1,8 @@
 package com.fatih.recipeBook.service.concretes;
 
+import static com.fatih.recipeBook.constants.SoftDeleteConstants.ACTIVE;
+import static com.fatih.recipeBook.constants.SoftDeleteConstants.PASSIVE;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -29,21 +32,21 @@ public class UserManager implements UserService {
   public UserEntity createUser(UserEntity userEntity) {
 
     userRepository.findByEmail(userEntity.getEmail()).ifPresent(existingUser -> {
-      throw new DataAlreadyExistException("This email already exists");
+      throw new DataAlreadyExistException("This email is already exists");
     });
 
     userRepository.findByPhone(userEntity.getPhone()).ifPresent(existingUser -> {
-      throw new DataAlreadyExistException("This phone already exists");
+      throw new DataAlreadyExistException("This phone is already exists");
     });
 
-    userEntity.setRecordStatus(0);
+    userEntity.setRecordStatus(ACTIVE);
     return userRepository.save(userEntity);
   }
 
   @Override
   @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
   public UserEntity getUserById(UUID id) {
-    return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid User ID!"));
+    return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Trying to get an invalid user ID!"));
   }
 
   @Override
@@ -55,11 +58,18 @@ public class UserManager implements UserService {
   @Override
   @Transactional
   public UserEntity updateUser(UserEntity requestedUserEntity, UUID id) {
-    UserEntity existingUserEntity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid User ID!"));
+    UserEntity existingUserEntity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Trying to update an invalid user ID!"));
 
     UserMapper.INSTANCE.updateToExistingUserWithIgnoreNulls(requestedUserEntity, existingUserEntity);
 
-    existingUserEntity.setRecordStatus(0);
+    existingUserEntity.setRecordStatus(ACTIVE);
     return userRepository.save(existingUserEntity);
     }
+
+  @Override
+  @Transactional
+  public void deleteUser(UUID id) {
+    UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Trying to delete an invalid user ID!"));
+    userEntity.setRecordStatus(PASSIVE);
+  }
 }

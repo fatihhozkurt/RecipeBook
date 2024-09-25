@@ -10,8 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.SQLRestriction;
+
 @Entity
 @Table(name = "users")
+@SQLRestriction("record_status <> '1'")
 public class UserEntity extends BaseEntity {
 
   @Column(name = "name", nullable = false, length = 20)
@@ -20,10 +23,10 @@ public class UserEntity extends BaseEntity {
   @Column(name = "surname", nullable = false, length = 20)
   private String surname;
 
-  @Column(name = "email", nullable = false, length = 50, unique = true)
+  @Column(name = "email", nullable = false, length = 70)
   private String email;
 
-  @Column(name = "phone", nullable = false, length = 13, unique = true)
+  @Column(name = "phone", nullable = false, length = 13)
   private String phone;
 
   @Column(name = "age")

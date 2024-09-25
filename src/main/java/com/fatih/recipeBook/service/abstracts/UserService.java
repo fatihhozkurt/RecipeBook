@@ -16,4 +16,6 @@ public interface UserService {
   List<UserEntity> getAllUsers();
 
   UserEntity updateUser(UserEntity requestedUserEntity, UUID id);
+
+  void deleteUser(UUID id);
 }

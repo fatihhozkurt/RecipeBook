@@ -40,7 +40,7 @@ public interface UserApi {
   ResponseEntity<UserCardResponse> getUserCardById(@RequestParam("id") UUID id);
 
   @DeleteMapping(BASE)
-  ResponseEntity<UserResponse> deleteUser(@Valid @RequestParam UUID id);
+  ResponseEntity<?> deleteUser(@Valid @RequestParam UUID id);
 
   @PutMapping(BASE)
   ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UpdateUserRequest updateUserRequest, @RequestParam UUID id);

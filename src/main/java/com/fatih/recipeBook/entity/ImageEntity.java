@@ -9,6 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.SQLRestriction;
+
 @Entity
 @Table(name = "images")
 public class ImageEntity extends BaseEntity {

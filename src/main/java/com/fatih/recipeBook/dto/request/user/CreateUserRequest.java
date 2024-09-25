@@ -33,7 +33,7 @@ public record CreateUserRequest(
 
     @NotNull(message = "{backend.constraints.NotNull.message}")
     @NotBlank(message = "{backend.constraints.NotBlank.message}")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).*$", message = "{backend.constraints.Password.message}")
+    @Pattern(regexp = "^(?=.*[A-ZÇĞİÖŞÜ])(?=.*[a-zçğıöşü])(?=.*[0-9]).*$", message = "{backend.constraints.Password.message}")
     String password
 ) {
 }

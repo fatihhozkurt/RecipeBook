@@ -20,7 +20,7 @@ public record UpdateUserRequest(
     @Max(value = 100, message = "{backend.constraints.Max.message}")
     Integer age,
 
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).*$", message = "{backend.constraints.Password.message}")
+    @Pattern(regexp = "^(?=.*[A-ZÇĞİÖŞÜ])(?=.*[a-zçğıöşü])(?=.*[0-9]).*$", message = "{backend.constraints.Password.message}")
     String password
 
 ) {
