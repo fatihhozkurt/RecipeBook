@@ -10,8 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.SQLRestriction;
+
 @Entity
 @Table(name = "categories")
+@SQLRestriction("record_status <> '1'")
 public class CategoryEntity extends BaseEntity{
 
   @Column(name = "name", nullable = false, length = 15, unique = true)

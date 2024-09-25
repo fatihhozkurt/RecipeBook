@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import jakarta.annotation.PreDestroy;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,16 +22,16 @@ public class BaseEntity implements Serializable {
   @Column(name = "id", updatable = false, nullable = false)
   private UUID id;
 
-  @Column(name = "record_status", nullable = false, columnDefinition = "int default 0")
+  @Column(name = "record_status", nullable = false)
   private Integer recordStatus;
 
-  @Column(name = "record_change_time")
+  @Column(name = "record_status_change_time")
   private LocalDateTime recordStatusChangeTime;
 
-  @Column(name = "createTime", nullable = false)
+  @Column(name = "create_time", nullable = false)
   private LocalDateTime createTime;
 
-  @Column(name = "updateTime")
+  @Column(name = "update_time")
   private LocalDateTime updateTime;
 
   @PrePersist
@@ -43,6 +42,11 @@ public class BaseEntity implements Serializable {
   @PreUpdate
   protected void onUpdate() {
     this.updateTime = LocalDateTime.now();
+
+    if(recordStatus == 1)
+    {
+      recordStatusChangeTime = LocalDateTime.now();
+    }
   }
 
   public BaseEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime) {

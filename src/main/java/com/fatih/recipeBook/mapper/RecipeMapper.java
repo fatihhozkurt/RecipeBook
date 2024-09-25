@@ -5,7 +5,7 @@ import java.util.List;
 import com.fatih.recipeBook.dto.request.recipe.CreateRecipeRequest;
 import com.fatih.recipeBook.dto.request.recipe.RecipeRequest;
 import com.fatih.recipeBook.dto.response.recipe.AllRecipesResponse;
-import com.fatih.recipeBook.dto.response.recipe.CategoryRecipesResponse;
+import com.fatih.recipeBook.dto.response.recipe.RecipesOfCategoryResponse;
 import com.fatih.recipeBook.dto.response.recipe.RecipeDetailsResponse;
 import com.fatih.recipeBook.dto.response.recipe.RecipeResponse;
 import com.fatih.recipeBook.entity.RecipeEntity;
@@ -27,7 +27,7 @@ public interface RecipeMapper {
 
   RecipeDetailsResponse toRecipeDetailsResponse(RecipeEntity recipeEntity);
 
-  List<CategoryRecipesResponse> toCategoryRecipesResponse(List<RecipeEntity> recipeEntities);
+  List<RecipesOfCategoryResponse> toCategoryRecipesResponse(List<RecipeEntity> recipeEntities);
 
   List<AllRecipesResponse> toAllRecipesResponse(List<RecipeEntity> recipeEntities);
 
