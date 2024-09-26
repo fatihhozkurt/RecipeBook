@@ -14,6 +14,7 @@ import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "images")
+@SQLRestriction("record_status <> '1'")
 public class ImageEntity extends BaseEntity {
 
   @Lob
@@ -33,9 +34,10 @@ public class ImageEntity extends BaseEntity {
   @JoinColumn(name = "recipe_id")
   private RecipeEntity recipe;
 
-  public ImageEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, byte[] data, String fileName,
-                     String fileType, LocalDateTime uploadDate, RecipeEntity recipe) {
-    super(id, recordStatus, recordStatusChangeTime);
+  public ImageEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, LocalDateTime createTime,
+                     LocalDateTime updateTime, byte[] data, String fileName, String fileType, LocalDateTime uploadDate,
+                     RecipeEntity recipe) {
+    super(id, recordStatus, recordStatusChangeTime, createTime, updateTime);
     this.data = data;
     this.fileName = fileName;
     this.fileType = fileType;
@@ -43,8 +45,7 @@ public class ImageEntity extends BaseEntity {
     this.recipe = recipe;
   }
 
-  public ImageEntity(byte[] data, String fileName, String fileType, LocalDateTime uploadDate,
-                     RecipeEntity recipe) {
+  public ImageEntity(byte[] data, String fileName, String fileType, LocalDateTime uploadDate, RecipeEntity recipe) {
     this.data = data;
     this.fileName = fileName;
     this.fileType = fileType;
@@ -78,7 +79,6 @@ public class ImageEntity extends BaseEntity {
   public void setFileType(String fileType) {
     this.fileType = fileType;
   }
-
 
   public LocalDateTime getUploadDate() {
     return uploadDate;

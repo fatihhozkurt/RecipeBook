@@ -3,7 +3,7 @@ package com.fatih.recipeBook.dto.response.recipe;
 import java.util.List;
 import java.util.UUID;
 
-import com.fatih.recipeBook.dto.response.category.CategoryBaseResponse;
+import com.fatih.recipeBook.dto.response.category.CategoryCardResponse;
 import com.fatih.recipeBook.dto.response.image.ImageCardResponse;
 
 public record RecipeDetailsResponse(
@@ -13,6 +13,6 @@ public record RecipeDetailsResponse(
     String description,
     Integer readingTime,
     List<ImageCardResponse> imageCardResponses,
-    CategoryBaseResponse categoryBaseResponse
+    CategoryCardResponse categoryCardResponse
 ) {
 }

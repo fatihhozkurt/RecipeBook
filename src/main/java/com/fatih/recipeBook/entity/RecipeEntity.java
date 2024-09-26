@@ -39,9 +39,10 @@ public class RecipeEntity extends BaseEntity{
   @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<ImageEntity> images;
 
-  public RecipeEntity(UUID id, Integer recordStatus, LocalDateTime recordChangeTime, String name, String description,
-                      Integer readingTime, UserEntity user, CategoryEntity category, List<ImageEntity> images) {
-    super(id, recordStatus, recordChangeTime);
+  public RecipeEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, LocalDateTime createTime,
+                      LocalDateTime updateTime, String name, String description, Integer readingTime, UserEntity user,
+                      CategoryEntity category, List<ImageEntity> images) {
+    super(id, recordStatus, recordStatusChangeTime, createTime, updateTime);
     this.name = name;
     this.description = description;
     this.readingTime = readingTime;

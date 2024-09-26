@@ -49,10 +49,13 @@ public class BaseEntity implements Serializable {
     }
   }
 
-  public BaseEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime) {
+  public BaseEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, LocalDateTime createTime,
+                    LocalDateTime updateTime) {
     this.id = id;
     this.recordStatus = recordStatus;
     this.recordStatusChangeTime = recordStatusChangeTime;
+    this.createTime = createTime;
+    this.updateTime = updateTime;
   }
 
   public BaseEntity() {
@@ -80,5 +83,21 @@ public class BaseEntity implements Serializable {
 
   public void setRecordStatusChangeTime(LocalDateTime recordStatusChangeTime) {
     this.recordStatusChangeTime = recordStatusChangeTime;
+  }
+
+  public LocalDateTime getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(LocalDateTime createTime) {
+    this.createTime = createTime;
+  }
+
+  public LocalDateTime getUpdateTime() {
+    return updateTime;
+  }
+
+  public void setUpdateTime(LocalDateTime updateTime) {
+    this.updateTime = updateTime;
   }
 }
