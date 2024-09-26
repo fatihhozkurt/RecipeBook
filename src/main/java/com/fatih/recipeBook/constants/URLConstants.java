@@ -8,7 +8,6 @@ public abstract class URLConstants {
   public static final String IMAGE = "/image";
 
   public static final String ID = "/id";
-  public static final String BATCH = "/batch";
   public static final String ALL = "/all";
   public static final String EXISTS = "/exits";
   public static final String COUNT = "/count";

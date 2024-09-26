@@ -3,22 +3,21 @@ package com.fatih.recipeBook.mapper;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.List;
 
+import com.fatih.recipeBook.dto.response.image.ImageBaseResponse;
 import com.fatih.recipeBook.dto.response.image.ImageCardResponse;
 import com.fatih.recipeBook.entity.ImageEntity;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import org.springframework.cglib.core.Local;
 import org.springframework.web.multipart.MultipartFile;
 
 @Mapper
 public interface ImageMapper {
   ImageMapper INSTANCE = Mappers.getMapper(ImageMapper.class);
 
-  @Mapping(target = "base64Image", expression = "java(convertToBase64(imageEntity.getData()))")
-  ImageCardResponse toImageCardResponse(ImageEntity imageEntity);
 
   default ImageEntity toImageEntity(MultipartFile file) {
     if (file == null) {
@@ -40,7 +39,13 @@ public interface ImageMapper {
     return imageEntity;
   }
 
+
   default String convertToBase64(byte[] data) {
     return Base64.getEncoder().encodeToString(data);
   }
+
+  List<ImageBaseResponse> toImageBaseResponseList(List<ImageEntity> imageEntity);
+
+  @Mapping(target = "base64Image", expression = "java(convertToBase64(imageEntity.getData()))")
+  ImageCardResponse toImageCardResponse(ImageEntity imageEntity);
 }

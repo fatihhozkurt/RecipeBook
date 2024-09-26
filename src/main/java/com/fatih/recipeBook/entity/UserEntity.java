@@ -23,7 +23,7 @@ public class UserEntity extends BaseEntity {
   @Column(name = "surname", nullable = false, length = 20)
   private String surname;
 
-  @Column(name = "email", nullable = false, length = 70)
+  @Column(name = "email", nullable = false, length = 60)
   private String email;
 
   @Column(name = "phone", nullable = false, length = 13)
@@ -38,10 +38,10 @@ public class UserEntity extends BaseEntity {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RecipeEntity> recipes;
 
-
-  public UserEntity(UUID id, Integer recordStatus, LocalDateTime recordChangeTime, String name, String surname,
-                    String email, String phone, Integer age, String password, List<RecipeEntity> recipes) {
-    super(id, recordStatus, recordChangeTime);
+  public UserEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, LocalDateTime createTime,
+                    LocalDateTime updateTime, String name, String surname, String email, String phone, Integer age,
+                    String password, List<RecipeEntity> recipes) {
+    super(id, recordStatus, recordStatusChangeTime, createTime, updateTime);
     this.name = name;
     this.surname = surname;
     this.email = email;
