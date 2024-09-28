@@ -2,11 +2,11 @@ package com.fatih.recipeBook.repository;
 
 import java.util.UUID;
 
-import com.fatih.recipeBook.entity.ImageEntity;
+import com.fatih.recipeBook.entity.LikeEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ImageRepository extends JpaRepository<ImageEntity, UUID> {
+public interface LikeRepository extends JpaRepository<LikeEntity, UUID> {
 }

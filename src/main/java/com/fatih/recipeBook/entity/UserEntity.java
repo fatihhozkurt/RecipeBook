@@ -38,9 +38,16 @@ public class UserEntity extends BaseEntity {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RecipeEntity> recipes;
 
-  public UserEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, LocalDateTime createTime,
-                    LocalDateTime updateTime, String name, String surname, String email, String phone, Integer age,
-                    String password, List<RecipeEntity> recipes) {
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<CommentEntity> commentEntities;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<LikeEntity> likeEntities;
+
+  public UserEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime,
+                    LocalDateTime createTime, LocalDateTime updateTime, String name, String surname,
+                    String email, String phone, Integer age, String password, List<RecipeEntity> recipes,
+                    List<CommentEntity> commentEntities, List<LikeEntity> likeEntities) {
     super(id, recordStatus, recordStatusChangeTime, createTime, updateTime);
     this.name = name;
     this.surname = surname;
@@ -49,10 +56,12 @@ public class UserEntity extends BaseEntity {
     this.age = age;
     this.password = password;
     this.recipes = recipes;
+    this.commentEntities = commentEntities;
+    this.likeEntities = likeEntities;
   }
 
   public UserEntity(String name, String surname, String email, String phone, Integer age, String password,
-                    List<RecipeEntity> recipes) {
+                    List<RecipeEntity> recipes, List<CommentEntity> commentEntities, List<LikeEntity> likeEntities) {
     this.name = name;
     this.surname = surname;
     this.email = email;
@@ -60,6 +69,8 @@ public class UserEntity extends BaseEntity {
     this.age = age;
     this.password = password;
     this.recipes = recipes;
+    this.commentEntities = commentEntities;
+    this.likeEntities = likeEntities;
   }
 
   public UserEntity() {
@@ -119,5 +130,21 @@ public class UserEntity extends BaseEntity {
 
   public void setRecipes(List<RecipeEntity> recipes) {
     this.recipes = recipes;
+  }
+
+  public List<CommentEntity> getCommentEntities() {
+    return commentEntities;
+  }
+
+  public void setCommentEntities(List<CommentEntity> commentEntities) {
+    this.commentEntities = commentEntities;
+  }
+
+  public List<LikeEntity> getLikeEntities() {
+    return likeEntities;
+  }
+
+  public void setLikeEntities(List<LikeEntity> likeEntities) {
+    this.likeEntities = likeEntities;
   }
 }

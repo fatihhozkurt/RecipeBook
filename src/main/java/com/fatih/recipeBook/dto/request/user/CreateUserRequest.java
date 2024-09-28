@@ -1,5 +1,7 @@
 package com.fatih.recipeBook.dto.request.user;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -20,11 +22,13 @@ public record CreateUserRequest(
     @Size(min = 2, max = 20, message = "{backend.constraints.Size.message}")
     String surname,
 
+
     @NotNull(message = "{backend.constraints.NotNull.message}")
     @NotBlank(message = "{backend.constraints.NotBlank.message}")
     @Email(message = "{backend.constraints.Email.message}")
     @Size(min = 13, max = 60, message = "{backend.constraints.Size.message}")
     String email,
+
 
     @NotNull(message = "{backend.constraints.NotNull.message}")
     @NotBlank(message = "{backend.constraints.NotBlank.message}")

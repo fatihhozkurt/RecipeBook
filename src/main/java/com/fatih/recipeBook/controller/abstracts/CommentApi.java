@@ -1,4 +1,4 @@
 package com.fatih.recipeBook.controller.abstracts;
 
-public interface CategoryApi {
+public interface CommentApi {
 }
