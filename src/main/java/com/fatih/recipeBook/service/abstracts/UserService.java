@@ -9,13 +9,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-  UserEntity createUser(UserEntity userEntity);
+  void createUser(UserEntity requestEntity);
 
-  UserEntity getUserById(UUID id);
+  UserEntity updateUser(UserEntity requestEntity, UUID uuid);
+
+  void deleteUser(UUID uuid);
 
   List<UserEntity> getAllUsers();
-
-  UserEntity updateUser(UserEntity requestedUserEntity, UUID id);
-
-  void deleteUser(UUID id);
 }

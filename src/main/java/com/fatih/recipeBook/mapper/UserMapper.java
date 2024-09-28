@@ -1,11 +1,8 @@
 package com.fatih.recipeBook.mapper;
 
-import java.util.List;
-
 import com.fatih.recipeBook.dto.request.user.CreateUserRequest;
 import com.fatih.recipeBook.dto.request.user.UpdateUserRequest;
-import com.fatih.recipeBook.dto.response.user.UserCardResponse;
-import com.fatih.recipeBook.dto.response.user.UserResponse;
+import com.fatih.recipeBook.dto.response.user.UserUpdateResponse;
 import com.fatih.recipeBook.entity.UserEntity;
 
 import org.mapstruct.BeanMapping;
@@ -16,18 +13,15 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface UserMapper {
-  UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-  UserEntity toCreateEntity(CreateUserRequest createUserRequest);
+  UserMapper INSTANCE = Mappers.getMapper( UserMapper.class );
 
-  UserEntity toUpdateEntity(UpdateUserRequest updateUserRequest);
+  UserEntity toUserEntity(CreateUserRequest createUserRequest);
+  UserEntity toUserEntity(UpdateUserRequest updateUserRequest);
 
-  UserResponse toUserResponse(UserEntity userEntity);
-
-  List<UserResponse> toUserResponseList(List<UserEntity> userEntities);
-
-  UserCardResponse toUserCardResponse(UserEntity userEntity);
+  UserUpdateResponse toUserUpdateResponse(UserEntity userEntity);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  void updateToExistingUserWithIgnoreNulls(UserEntity userEntity, @MappingTarget UserEntity existingUser);
+  void updateUserFromRequest(UserEntity requestEntity, @MappingTarget UserEntity existingUser);
+
 }

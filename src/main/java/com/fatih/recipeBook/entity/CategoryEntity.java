@@ -15,7 +15,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Entity
 @Table(name = "categories")
 @SQLRestriction("record_status <> '1'")
-public class CategoryEntity extends BaseEntity{
+public class CategoryEntity extends BaseEntity {
 
   @Column(name = "name", nullable = false, length = 20)
   private String name;
@@ -23,8 +23,9 @@ public class CategoryEntity extends BaseEntity{
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RecipeEntity> recipes;
 
-  public CategoryEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, LocalDateTime createTime,
-                        LocalDateTime updateTime, String name, List<RecipeEntity> recipes) {
+  public CategoryEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime,
+                        LocalDateTime createTime, LocalDateTime updateTime, String name,
+                        List<RecipeEntity> recipes) {
     super(id, recordStatus, recordStatusChangeTime, createTime, updateTime);
     this.name = name;
     this.recipes = recipes;

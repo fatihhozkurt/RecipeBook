@@ -13,11 +13,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-import org.hibernate.annotations.SQLRestriction;
-
 @Entity
 @Table(name = "recipes")
-public class RecipeEntity extends BaseEntity{
+public class RecipeEntity extends BaseEntity {
 
   @Column(name = "name", nullable = false, length = 30)
   private String name;
@@ -28,37 +26,49 @@ public class RecipeEntity extends BaseEntity{
   @Column(name = "reading_time", nullable = false)
   private Integer readingTime;
 
-  @ManyToOne
+  @Column(name = "recipe_count", nullable = false)
+  private Long recipeCount;
+
+  @ManyToOne(optional = false)
   @JoinColumn(name = "user_id")
   private UserEntity user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "category_id")
   private CategoryEntity category;
 
   @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<ImageEntity> images;
+  private List<CommentEntity> commentEntities;
 
-  public RecipeEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime, LocalDateTime createTime,
-                      LocalDateTime updateTime, String name, String description, Integer readingTime, UserEntity user,
-                      CategoryEntity category, List<ImageEntity> images) {
+  @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<LikeEntity> likeEntities;
+
+  public RecipeEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime,
+                      LocalDateTime createTime, LocalDateTime updateTime, String name,
+                      String description, Integer readingTime, Long recipeCount, UserEntity user,
+                      CategoryEntity category,
+                      List<CommentEntity> commentEntities, List<LikeEntity> likeEntities) {
     super(id, recordStatus, recordStatusChangeTime, createTime, updateTime);
     this.name = name;
     this.description = description;
     this.readingTime = readingTime;
+    this.recipeCount = recipeCount;
     this.user = user;
     this.category = category;
-    this.images = images;
+    this.commentEntities = commentEntities;
+    this.likeEntities = likeEntities;
   }
 
-  public RecipeEntity(String name, String description, Integer readingTime, UserEntity user, CategoryEntity category,
-                      List<ImageEntity> images) {
+  public RecipeEntity(String name, String description, Integer readingTime, Long recipeCount, UserEntity user,
+                      CategoryEntity category, List<CommentEntity> commentEntities, List<LikeEntity> likeEntities) {
     this.name = name;
     this.description = description;
     this.readingTime = readingTime;
+    this.recipeCount = recipeCount;
     this.user = user;
     this.category = category;
-    this.images = images;
+    this.commentEntities = commentEntities;
+    this.likeEntities = likeEntities;
   }
 
   public RecipeEntity() {
@@ -88,6 +98,14 @@ public class RecipeEntity extends BaseEntity{
     this.readingTime = readingTime;
   }
 
+  public Long getRecipeCount() {
+    return recipeCount;
+  }
+
+  public void setRecipeCount(Long recipeCount) {
+    this.recipeCount = recipeCount;
+  }
+
   public UserEntity getUser() {
     return user;
   }
@@ -104,11 +122,19 @@ public class RecipeEntity extends BaseEntity{
     this.category = category;
   }
 
-  public List<ImageEntity> getImages() {
-    return images;
+  public List<CommentEntity> getCommentEntities() {
+    return commentEntities;
   }
 
-  public void setImages(List<ImageEntity> images) {
-    this.images = images;
+  public void setCommentEntities(List<CommentEntity> commentEntities) {
+    this.commentEntities = commentEntities;
+  }
+
+  public List<LikeEntity> getLikeEntities() {
+    return likeEntities;
+  }
+
+  public void setLikeEntities(List<LikeEntity> likeEntities) {
+    this.likeEntities = likeEntities;
   }
 }
