@@ -6,6 +6,8 @@ import java.util.UUID;
 import com.fatih.recipeBook.controller.abstracts.UserApi;
 import com.fatih.recipeBook.dto.request.user.CreateUserRequest;
 import com.fatih.recipeBook.dto.request.user.UpdateUserRequest;
+import com.fatih.recipeBook.dto.response.user.UserBaseResponse;
+import com.fatih.recipeBook.dto.response.user.UserPageResponse;
 import com.fatih.recipeBook.dto.response.user.UserUpdateResponse;
 import com.fatih.recipeBook.entity.UserEntity;
 import com.fatih.recipeBook.mapper.UserMapper;
@@ -28,18 +30,9 @@ public class UserController implements UserApi {
 
   @Override
   public ResponseEntity<HttpStatus> createUser(CreateUserRequest createUserRequest) {
-    ;
     UserEntity requestEntity = UserMapper.INSTANCE.toUserEntity(createUserRequest);
     userService.createUser(requestEntity);
     return new ResponseEntity<>(HttpStatus.CREATED);
-  }
-
-  @Override
-  public ResponseEntity<UserUpdateResponse> updateUser(UpdateUserRequest updateUserRequest, UUID uuid) {
-    UserEntity requestEntity = UserMapper.INSTANCE.toUserEntity(updateUserRequest);
-    UserEntity updatedUser = userService.updateUser(requestEntity, uuid);
-    UserUpdateResponse userUpdateResponse = UserMapper.INSTANCE.toUserUpdateResponse(updatedUser);
-    return new ResponseEntity<>(userUpdateResponse, HttpStatus.CREATED);
   }
 
   @Override
@@ -53,5 +46,27 @@ public class UserController implements UserApi {
     List<UserEntity> allUsers = userService.getAllUsers();
     List<UserBaseResponse> userBaseResponses = UserMapper.INSTANCE.toUserBaseResponseList(allUsers);
     return new ResponseEntity<>(userBaseResponses, HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<UserBaseResponse> getBaseUserById(UUID uuid) {
+    UserEntity userEntity = userService.getUserById(uuid);
+    UserBaseResponse userBaseResponse = UserMapper.INSTANCE.toUserBaseResponse(userEntity);
+    return new ResponseEntity<>(userBaseResponse,HttpStatus.FOUND);
+  }
+
+  @Override
+  public ResponseEntity<UserPageResponse> getPageUserById(UUID uuid) {
+    UserEntity userEntity = userService.getUserById(uuid);
+    UserPageResponse userPageResponse = UserMapper.INSTANCE.toUserPageResponse(userEntity);
+    return new ResponseEntity<>(userPageResponse, HttpStatus.FOUND);
+  }
+
+  @Override
+  public ResponseEntity<UserUpdateResponse> updateUser(UpdateUserRequest updateUserRequest, UUID uuid) {
+    UserEntity requestEntity = UserMapper.INSTANCE.toUserEntity(updateUserRequest);
+    UserEntity updatedUser = userService.updateUser(requestEntity, uuid);
+    UserUpdateResponse userUpdateResponse = UserMapper.INSTANCE.toUserUpdateResponse(updatedUser);
+    return new ResponseEntity<>(userUpdateResponse, HttpStatus.CREATED);
   }
 }

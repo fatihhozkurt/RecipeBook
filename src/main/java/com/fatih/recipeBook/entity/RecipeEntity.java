@@ -13,8 +13,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.SQLRestriction;
+
 @Entity
 @Table(name = "recipes")
+@SQLRestriction("record_status <> '1'")
 public class RecipeEntity extends BaseEntity {
 
   @Column(name = "name", nullable = false, length = 30)

@@ -14,6 +14,8 @@ import jakarta.validation.Valid;
 
 import com.fatih.recipeBook.dto.request.user.CreateUserRequest;
 import com.fatih.recipeBook.dto.request.user.UpdateUserRequest;
+import com.fatih.recipeBook.dto.response.user.UserBaseResponse;
+import com.fatih.recipeBook.dto.response.user.UserPageResponse;
 import com.fatih.recipeBook.dto.response.user.UserUpdateResponse;
 
 import org.springframework.http.HttpStatus;
@@ -41,10 +43,10 @@ public interface UserApi {
 
   @GetMapping(BASE + ALL)
   ResponseEntity<List<UserBaseResponse>> getAllBaseUsers();
-//
-//  @GetMapping(BASE + ID)
-//  ResponseEntity<UserBaseResponse> getBaseUserById(@RequestParam UUID uuid);
-//
-//  @GetMapping(PAGE + ID)
-//  ResponseEntity<UserPageResponse> getPageUserById(@RequestParam UUID uuid);
+
+  @GetMapping(BASE + ID)
+  ResponseEntity<UserBaseResponse> getBaseUserById(@RequestParam UUID uuid);
+
+  @GetMapping(PAGE + ID)
+  ResponseEntity<UserPageResponse> getPageUserById(@RequestParam UUID uuid);
 }

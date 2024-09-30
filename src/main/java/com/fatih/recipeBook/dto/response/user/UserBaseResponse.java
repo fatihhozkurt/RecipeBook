@@ -1,10 +1,11 @@
 package com.fatih.recipeBook.dto.response.user;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-public record UserUpdateResponse(
+public record UserBaseResponse(
 
-    LocalDateTime updateTime,
+    UUID id,
 
     String name,
 

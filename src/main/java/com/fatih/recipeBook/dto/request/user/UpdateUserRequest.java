@@ -11,24 +11,24 @@ import jakarta.validation.constraints.Size;
 public record UpdateUserRequest(
 
     @Size(min = 2, max = 20, message = "{backend.constraints.Size.message}")
-    Optional<String> name,
+    String name,
 
     @Size(min = 2, max = 20, message = "{backend.constraints.Size.message}")
-    Optional<String> surname,
+    String surname,
 
     @Email(message = "{backend.constraints.Email.message}")
     @Size(min = 13, max = 60, message = "{backend.constraints.Size.message}")
-    Optional<String> email,
+    String email,
 
     @Pattern(regexp = "^(\\+90|0)?5\\d{9}$", message = "{backend.constraints.Phone.message}")
-    Optional<String> phone,
+    String phone,
 
     @Min(value = 12, message = "{backend.constraints.Min.message}")
     @Max(value = 100, message = "{backend.constraints.Max.message}")
-    Optional<Integer> age,
+    Integer age,
 
     @Pattern(regexp = "^(?=.*[A-ZÇĞİÖŞÜ])(?=.*[a-zçğıöşü])(?=.*[0-9]).*$", message = "{backend.constraints.Password.message}")
     @Size(min = 8, max = 16, message = "{backend.constraints.Size.message}")
-    Optional<String> password
+    String password
 ) {
 }

@@ -16,4 +16,6 @@ public interface UserService {
   void deleteUser(UUID uuid);
 
   List<UserEntity> getAllUsers();
+
+  UserEntity getUserById(UUID uuid);
 }

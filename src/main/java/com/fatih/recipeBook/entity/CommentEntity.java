@@ -23,9 +23,6 @@ public class CommentEntity extends BaseEntity {
   @Column(name = "detail", nullable = false, columnDefinition = "TEXT")
   private String detail;
 
-  @Column(name = "comment_date", nullable = false)
-  private LocalDateTime commentDate;
-
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private UserEntity user;
@@ -35,20 +32,18 @@ public class CommentEntity extends BaseEntity {
   private RecipeEntity recipe;
 
   public CommentEntity(UUID id, Integer recordStatus, LocalDateTime recordStatusChangeTime,
-                       LocalDateTime createTime, LocalDateTime updateTime, String title, String detail,
-                       LocalDateTime commentDate, UserEntity user, RecipeEntity recipe) {
+                       LocalDateTime createTime, LocalDateTime updateTime, String title, String detail, UserEntity user,
+                       RecipeEntity recipe) {
     super(id, recordStatus, recordStatusChangeTime, createTime, updateTime);
     this.title = title;
     this.detail = detail;
-    this.commentDate = commentDate;
     this.user = user;
     this.recipe = recipe;
   }
 
-  public CommentEntity(String title, String detail, LocalDateTime commentDate, UserEntity user, RecipeEntity recipe) {
+  public CommentEntity(String title, String detail, UserEntity user, RecipeEntity recipe) {
     this.title = title;
     this.detail = detail;
-    this.commentDate = commentDate;
     this.user = user;
     this.recipe = recipe;
   }
@@ -70,14 +65,6 @@ public class CommentEntity extends BaseEntity {
 
   public void setDetail(String detail) {
     this.detail = detail;
-  }
-
-  public LocalDateTime getCommentDate() {
-    return commentDate;
-  }
-
-  public void setCommentDate(LocalDateTime commentDate) {
-    this.commentDate = commentDate;
   }
 
   public UserEntity getUser() {
