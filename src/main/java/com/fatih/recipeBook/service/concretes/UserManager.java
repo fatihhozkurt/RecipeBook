@@ -14,6 +14,8 @@ import com.fatih.recipeBook.repository.UserRepository;
 import com.fatih.recipeBook.service.abstracts.UserService;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserManager implements UserService {
@@ -25,6 +27,7 @@ public class UserManager implements UserService {
   }
 
   @Override
+  @Transactional
   public void createUser(UserEntity requestEntity) {
     userRepository.findByPhone(requestEntity.getPhone()).ifPresent(existing -> {
       throw new DataAlreadyExistException("This phone is already in use with another account!");
@@ -39,6 +42,7 @@ public class UserManager implements UserService {
   }
 
   @Override
+  @Transactional
   public UserEntity updateUser(UserEntity requestEntity, UUID uuid) {
     UserEntity existingUser =
         userRepository.findById(uuid).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
@@ -57,15 +61,24 @@ public class UserManager implements UserService {
   }
 
   @Override
+  @Transactional
   public void deleteUser(UUID uuid) {
     UserEntity existingUser =
         userRepository.findById(uuid).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
     existingUser.setRecordStatus(PASSIVE);
+    userRepository.save(existingUser);
   }
 
   @Override
+  @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
   public List<UserEntity> getAllUsers() {
     return userRepository.findAll();
+  }
+
+  @Override
+  @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+  public UserEntity getUserById(UUID uuid) {
+    return userRepository.findById(uuid).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
   }
 }
